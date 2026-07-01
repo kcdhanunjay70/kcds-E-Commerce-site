@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KCDS E-Commerce Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar">
+      <a class="brand" href="#shop"><span>KC</span><strong>KCDS Shop</strong></a>
+      <div class="nav-links">
+        <a href="#shop">Shop</a>
+        <a href="#cartPanel">Cart</a>
+        <a href="#orders">Orders</a>
+        <a href="#admin">Admin</a>
+      </div>
+    </nav>
+    <section class="hero-layout">
+      <div>
+        <p class="kicker">Online shopping website</p>
+        <h1>Buy gadgets, accessories and campus essentials from one fast e-commerce portal.</h1>
+        <p class="lead">Product catalog, cart, checkout, orders and admin product management built with HTML, CSS, JS, Flask and SQL database support.</p>
+        <div class="hero-actions">
+          <a href="#shop">Start Shopping</a>
+          <a class="secondary" href="#cartPanel">View Cart</a>
+        </div>
+      </div>
+      <aside class="deal-card">
+        <span>Free Delivery</span>
+        <strong>Orders above Rs. 20,000</strong>
+        <p>Checkout creates a real order record and updates stock automatically.</p>
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <section class="panel shop-panel" id="shop">
+      <div class="section-head row">
+        <div>
+          <span>Product Store</span>
+          <h2>Featured Products</h2>
+        </div>
+        <div class="filters">
+          <select id="categoryFilter"><option value="">All Categories</option></select>
+          <input id="searchInput" type="search" placeholder="Search products">
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="workspace">
+      <section class="panel cart-panel" id="cartPanel">
+        <div class="section-head row">
+          <div>
+            <span>Shopping Cart</span>
+            <h2>Cart and Checkout</h2>
+          </div>
+          <button type="button" class="ghost" id="clearCart">Clear</button>
+        </div>
+        <div class="cart-list" id="cartList"></div>
+        <div class="totals" id="cartTotals"></div>
+        <form class="checkout-form" id="checkoutForm">
+          <div class="form-grid">
+            <label>Name<input name="customerName" required placeholder="Customer name"></label>
+            <label>Email<input name="email" type="email" required placeholder="customer@email.com"></label>
+            <label>Phone<input name="phone" required maxlength="10" placeholder="10 digit mobile"></label>
+          </div>
+          <label>Delivery Address<textarea name="address" rows="3" required placeholder="House no, street, city, pincode"></textarea></label>
+          <button type="submit">Place Order</button>
+          <p class="form-message" id="checkoutMessage"></p>
+        </form>
+      </section>
+
+      <form class="panel admin-panel" id="admin">
+        <div class="section-head">
+          <span>Admin Product Module</span>
+          <h2>Add Product</h2>
+        </div>
+        <div class="form-grid">
+          <label>SKU<input name="sku" required placeholder="KC-NEW-001"></label>
+          <label>Name<input name="name" required placeholder="Product name"></label>
+          <label>Category<input name="category" required placeholder="Mobiles"></label>
+          <label>Price<input name="price" type="number" min="1" required placeholder="9999"></label>
+          <label>Stock<input name="stock" type="number" min="0" required placeholder="20"></label>
+          <label>Rating<input name="rating" type="number" min="1" max="5" step="0.1" value="4.2"></label>
+        </div>
+        <label>Image URL<input name="image" placeholder="https://..."></label>
+        <label>Description<textarea name="description" rows="3" required placeholder="Product highlights"></textarea></label>
+        <button type="submit">Save Product</button>
+        <p class="form-message" id="productMessage"></p>
+      </form>
+    </section>
+
+    <section class="panel orders-panel" id="orders">
+      <div class="section-head row">
+        <div>
+          <span>Order Management</span>
+          <h2>Recent Orders</h2>
+        </div>
+        <input id="orderSearch" type="search" placeholder="Search orders">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="orderRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
