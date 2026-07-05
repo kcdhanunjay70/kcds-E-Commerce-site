@@ -1,8 +1,15 @@
-from app import create_app, db
+import mongomock
+
+from app import create_app
 
 
 def make_client():
-    app = create_app({"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:", "SECRET_KEY": "test"})
+    app = create_app({
+        "TESTING": True,
+        "MONGO_CLIENT": mongomock.MongoClient(),
+        "MONGO_DB_NAME": f"test_ecommerce_{id(object())}",
+        "SECRET_KEY": "test",
+    })
     return app.test_client()
 
 
@@ -12,6 +19,7 @@ def test_health_endpoint():
     payload = response.get_json()
     assert response.status_code == 200
     assert payload["success"] is True
+    assert payload["database"] == "mongodb"
 
 
 def test_products_seeded():

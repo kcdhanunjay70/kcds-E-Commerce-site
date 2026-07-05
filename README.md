@@ -1,67 +1,43 @@
-# KCDS E-Commerce Site
+# KCDS E-Commerce Site — MongoDB
 
-Online shopping website built with HTML, CSS, JavaScript, Python Flask and SQL database support for PostgreSQL/MySQL.
+Responsive shopping application built with HTML, CSS, JavaScript, Flask, PyMongo and MongoDB.
 
 ## Features
 
-- Jigel responsive e-commerce UI with product catalog.
-- Product search and category filtering.
-- Shopping cart with quantity update and totals.
-- Checkout flow that creates orders and updates product stock.
-- Admin module to add products.
-- Recent orders dashboard.
-- SQLAlchemy models for products, orders and order items.
-- Uses `DATABASE_URL` for PostgreSQL/MySQL in production.
-- SQLite fallback for local development.
-- Render deployment configuration and GitHub Actions CI.
+- MongoDB `products` and `orders` collections
+- Automatic product seed data and unique SKU index
+- Product search, categories and admin product creation
+- Session cart, checkout, atomic stock updates and order history
+- Dashboard statistics and MongoDB health endpoint
+- Render and MongoDB Atlas ready
 
-## Local Setup
+## Run locally
+
+1. Start MongoDB.
+2. Copy `.env.example` values into your environment.
+3. Install and run:
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
 ```
 
 Open `http://localhost:5000`.
 
-## Database
+## Environment
 
-Local default:
+| Variable | Default |
+| --- | --- |
+| `MONGO_URI` | `mongodb://localhost:27017` |
+| `MONGO_DB_NAME` | `kcds_ecommerce` |
+| `SECRET_KEY` | Development-only fallback |
 
-```text
-sqlite:///ecommerce.db
-```
-
-Production examples:
-
-```text
-postgresql://user:password@host:5432/dbname
-mysql+pymysql://user:password@host:3306/dbname
-```
-
-Set the connection string as `DATABASE_URL`.
-
-## API Endpoints
-
-- `GET /api/health`
-- `GET /api/products`
-- `POST /api/products`
-- `GET /api/cart`
-- `POST /api/cart`
-- `PATCH /api/cart/<product_id>`
-- `DELETE /api/cart`
-- `POST /api/orders`
-- `GET /api/orders`
-- `GET /api/stats`
-
-## Deploy on Render
-
-Use `render.yaml`, connect this GitHub repository, and set `DATABASE_URL` plus `SECRET_KEY`.
+For Render, set `MONGO_URI` to the MongoDB Atlas connection string. The `/api/health` endpoint verifies the active MongoDB connection.
 
 ## Tests
 
 ```bash
 pytest -q
 ```
+
+Tests use an isolated in-memory MongoDB-compatible client.

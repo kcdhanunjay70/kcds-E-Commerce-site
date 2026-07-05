@@ -8,7 +8,9 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
-      - key: DATABASE_URL
+      - key: MONGO_URI
         sync: false
+      - key: MONGO_DB_NAME
+        value: kcds_ecommerce
       - key: SECRET_KEY
         generateValue: true
